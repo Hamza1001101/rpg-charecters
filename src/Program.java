@@ -16,7 +16,7 @@ public class Program {
 
         Mage mage = new Mage("Hamza");
 
-        Weapon staff = new Weapon("Wooden stuff", 1, 3,
+      /*  Weapon staff = new Weapon("Wooden stuff", 1, 3,
                 0.5, WeaponType.STAFFS, new PrimaryAttributes(0, 0, 2, 1));
         Armor cloth = new Armor("Cloth robe", 1,
                 SlotType.BODY, ArmorType.CLOTH, new PrimaryAttributes(0, 0, 0, 2));
@@ -56,8 +56,13 @@ public class Program {
         warrior.equip(mjolnir);
         warrior.equip(crownOfImmortality);
         warrior.equip(cloakOfLevitation);
-        warrior.equip(soulForgedPantsOfHonor);
+        warrior.equip(soulForgedPantsOfHonor);*/
 
-        new CharecterPrinter().displayStats(warrior);
+   int v= mage.getBaseAttributes().getVitality();
+  int s=  mage.getBaseAttributes().getStrength();
+  int d=  mage.getBaseAttributes().getDexterity();
+   int g=  mage.getBaseAttributes().getIntelligence();
+
+        System.out.println(v + " " + s +   " " +d + " " +g);
     }
 }
