@@ -37,7 +37,7 @@ public abstract class CharacterBase {
         updateTotalAttributes();
     }
 
-    public abstract void levelUp(int level);
+    protected abstract void levelUp(int level);
 
     public abstract void equip(Weapon weapon) throws InvalidWeaponException;
 
@@ -46,7 +46,7 @@ public abstract class CharacterBase {
     public abstract double calculateDamage();
 
 
-    public void equipArmor(Armor armor) throws InvalidArmorException {
+    protected void equipArmor(Armor armor) throws InvalidArmorException {
 
         if (armor.getRequiredLevel() > this.level) {
             throw new InvalidArmorException("Cannot equip a WEAPON that has a higher level requirement.");
@@ -60,7 +60,7 @@ public abstract class CharacterBase {
         setEquipAttributes();
     }
 
-    public void equipWeapon(Weapon weapon) throws InvalidWeaponException {
+    protected void equipWeapon(Weapon weapon) throws InvalidWeaponException {
         if (weapon.getRequiredLevel() > this.level) {
             throw new InvalidWeaponException("Cannot equip a WEAPON that has a higher level requirement.");
         }
@@ -68,12 +68,12 @@ public abstract class CharacterBase {
         setEquipAttributes();
     }
 
-    public double calculateDPS(double param) {
+    protected double calculateDPS(double param) {
         return eItem.getWeaponItem() == null ? 1 : eItem.getWeaponItem().getDPSValue() * (1 + (param / 100));
     }
 
 
-    public void increaseCharecterLevel(int level) {
+    protected void increaseCharecterLevel(int level) {
         if (level <= 0) {
             throw new IllegalArgumentException("Level gain has to be more than 0");
         }
@@ -126,7 +126,7 @@ public abstract class CharacterBase {
         }
     }
 
-    public void updateCharecter(int level, int vitality, int strength, int dexterity,  int intelligence) {
+    protected void updateCharecter(int level, int vitality, int strength, int dexterity,  int intelligence) {
         IntStream.range(0, level).forEach(i -> {
             baseAttributes.increaseDexterity(dexterity);
             baseAttributes.increaseIntelligence(intelligence);
@@ -137,7 +137,7 @@ public abstract class CharacterBase {
         updateTotalAttributes();
     }
 
-    public void updateTotalAttributes() {
+    private void updateTotalAttributes() {
 
         //clear out first!
         totalAttributes = new PrimaryAttributes(0, 0, 0, 0);
@@ -150,7 +150,7 @@ public abstract class CharacterBase {
         updateSecondaryAttributes();
     }
 
-    public void updateSecondaryAttributes() {
+    private void updateSecondaryAttributes() {
         secondaryAttributes.setHealth(totalAttributes.getVitality());
         secondaryAttributes.setArmorRating(totalAttributes.getDexterity(), totalAttributes.getStrength());
         secondaryAttributes.setElementalResistance(totalAttributes.getIntelligence());
