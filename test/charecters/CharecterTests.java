@@ -35,4 +35,11 @@ class CharecterTests {
         });
     }
 
+    @Test
+    public void primaryAttributes_CorrectDefaultValues_whenCharecterIsCreated(){
+        double [] defaultValues = {mage.getBaseAttributes().getVitality(), mage.getBaseAttributes().getIntelligence(),
+        mage.getBaseAttributes().getDexterity(), mage.getBaseAttributes().getStrength()};
+        double [] expectedValues = {5,8,1,1};
+        assertArrayEquals(expectedValues,defaultValues);
+    }
 }
