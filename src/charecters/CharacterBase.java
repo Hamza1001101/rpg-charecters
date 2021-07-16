@@ -26,6 +26,12 @@ public abstract class CharacterBase {
     private final Equipment eItem = new Equipment();
 
 
+    /**
+     * (Constructor) Initialize Charecter info (name, level, baseAttributes, equipmentAttributes & totalAttributes.
+     *
+     * @param name           - charecter name
+     * @param baseAttributes - charecter baseAttributes (type of primaryAttributes)
+     */
     public CharacterBase(String name, PrimaryAttributes baseAttributes) {
         this.name = name;
         this.level = 1;
@@ -37,6 +43,7 @@ public abstract class CharacterBase {
         updateTotalAttributes();
     }
 
+
     protected abstract void levelUp(int level);
 
     public abstract boolean equip(Weapon weapon) throws InvalidWeaponException;
@@ -46,10 +53,21 @@ public abstract class CharacterBase {
     public abstract double calculateDamage();
 
 
+    /**
+     * Calculates the charecter DPS based on weapon and param.
+     *
+     * @param param - (double)
+     * @return (1) if charecter doesn't have a weapon
+     */
     protected double calculateDPS(double param) {
         return eItem.getWeaponItem() == null ? 1 : eItem.getWeaponItem().getDPSValue() * (1 + (param / 100));
     }
 
+    /**
+     * Checks charecter level & if it is not greater than 0, than it will add up.
+     *
+     * @param level (int) charecter level.
+     */
     protected void increaseCharecterLevel(int level) {
         if (level <= 0) {
             throw new IllegalArgumentException("Level gain has to be more than 0");
@@ -57,7 +75,16 @@ public abstract class CharacterBase {
         this.level += level;
     }
 
-    //change the exception
+
+    /**
+     * Equips a charecter with an armor and checks if it meets the armor level requirements.
+     * The armor will be equipped as specified in the item slot
+     * and it will update the character's equipment attributes once it is equipped.
+     *
+     * @param armor - armor
+     * @return True if armor is equipped
+     * @throws InvalidArmorException throws Exception OTHERWISE
+     */
 
     protected boolean equipArmor(Armor armor) throws InvalidArmorException {
 
@@ -70,25 +97,31 @@ public abstract class CharacterBase {
             setEquipAttributes();
             return true;
         } else {
-            throw new InvalidArmorException("Cannot equip a Armor that has a higher level requirement.");
+            throw new InvalidArmorException("Armor with a higher level requirement cannot be equipped.");
         }
-
-
     }
 
 
-    //change the exception later.
+    /**
+     * Equips a charecter with a weapon, also checks whether the weapon requiredLevel is too high.
+     *
+     * @param weapon - weapon
+     * @return True if a weapon is equipped
+     * @throws InvalidWeaponException throws Exception OTHERWISE
+     */
     protected boolean equipWeapon(Weapon weapon) throws InvalidWeaponException {
         if (weapon.getRequiredLevel() <= this.level) {
             eItem.getSlotTypeItem().put(SlotType.WEAPON, weapon);
             setEquipAttributes();
             return true;
         } else {
-            throw new InvalidWeaponException("Cannot equip a WEAPON that has a higher level requirement.");
+            throw new InvalidWeaponException("WEAPONS with a higher level requirement cannot be equipped.");
         }
     }
 
-
+    /**
+     * Resets equipmentAttributes values first and then updates totalAttributes & equipmentAttributes.
+     */
     private void setEquipAttributes() {
         //before updating reset fields
         equipmentAttributes = new PrimaryAttributes(0, 0, 0, 0);
@@ -96,6 +129,14 @@ public abstract class CharacterBase {
         eItem.getSlotTypeItem().forEach(this::updateEquipAttributes);
         updateTotalAttributes();
     }
+
+    /**
+     * Increases the equipment attributes of each item in the character's equipment,
+     * based on the weapon's or armor's primary attributes.
+     *
+     * @param key   - itemKeys
+     * @param value - actualItemValues
+     */
 
     private void updateEquipAttributes(SlotType key, Item value) {
         if (key == SlotType.WEAPON) {
@@ -118,7 +159,16 @@ public abstract class CharacterBase {
         }
     }
 
-    protected void updateCharecter(int level, int vitality, int strength, int dexterity,  int intelligence) {
+    /**
+     * Updates charecter baseAttributes + charecter totalAttributes.
+     *
+     * @param level        - charecterLevel
+     * @param vitality     -  charecterVitality
+     * @param strength     - charecterStrength
+     * @param dexterity    - charecterDexterity
+     * @param intelligence - charecterIntelligence
+     */
+    protected void updateCharecter(int level, int vitality, int strength, int dexterity, int intelligence) {
         IntStream.range(0, level).forEach(i -> {
             baseAttributes.increaseDexterity(dexterity);
             baseAttributes.increaseIntelligence(intelligence);
@@ -147,6 +197,7 @@ public abstract class CharacterBase {
         secondaryAttributes.setArmorRating(totalAttributes.getDexterity(), totalAttributes.getStrength());
         secondaryAttributes.setElementalResistance(totalAttributes.getIntelligence());
     }
+
     public String getName() {
         return name;
     }

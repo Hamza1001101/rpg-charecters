@@ -21,11 +21,11 @@ public class Ranger  extends CharacterBase{
 
     @Override
     public boolean equip(Weapon weapon) throws InvalidWeaponException {
-        if (weapon.getWeaponType() == WeaponType.BOWS) {
+        if (weapon.getWeaponType() == WeaponType.BOW) {
             equipWeapon(weapon);
             return true;
         }
-        throw new InvalidWeaponException("Invalid weapon choice!");
+        throw new InvalidWeaponException("Ranger cannot equip anything other than BOW");
     }
 
     @Override
@@ -35,7 +35,7 @@ public class Ranger  extends CharacterBase{
                 equipArmor(armor);
                 return true;
             }
-            default -> throw new InvalidArmorException("Invalid armor choice!");
+            default -> throw new InvalidArmorException("Ranger cannot equip anything other than LEATHER or MAIL armor");
         }
     }
 

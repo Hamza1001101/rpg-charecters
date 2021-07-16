@@ -3,9 +3,9 @@ package items;
 import equimpent.SlotType;
 
 public abstract class Item {
-    private String name;
-    private int requiredLevel;
-    private SlotType slotType;
+    private final String name;
+    private final int requiredLevel;
+    private final SlotType slotType;
 
     public Item(String name, int requiredLevel, SlotType slotType) {
         this.name = name;
@@ -25,15 +25,5 @@ public abstract class Item {
         return slotType;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
 
-    public void setRequiredLevel(int requiredLevel) {
-        this.requiredLevel = requiredLevel;
-    }
-
-    public void setSlotType(SlotType slotType) {
-        this.slotType = slotType;
-    }
 }

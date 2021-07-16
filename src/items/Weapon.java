@@ -4,12 +4,12 @@ import attributes.PrimaryAttributes;
 import equimpent.SlotType;
 
 public class Weapon extends Item {
-    private int damage;
-    private double attackSpeed;
-    private WeaponType weaponType;
-    private PrimaryAttributes primaryAttributes;
+    private final int damage;
+    private final double attackSpeed;
+    private final WeaponType weaponType;
+    private final PrimaryAttributes primaryAttributes;
 
-    public Weapon(String name, int requiredLevel,  int damage, double attackSpeed, WeaponType weaponType, PrimaryAttributes primaryAttributes) {
+    public Weapon(String name, int requiredLevel, int damage, double attackSpeed, WeaponType weaponType, PrimaryAttributes primaryAttributes) {
         super(name, requiredLevel, SlotType.WEAPON);
         this.damage = damage;
         this.attackSpeed = attackSpeed;
@@ -25,7 +25,7 @@ public class Weapon extends Item {
         return attackSpeed;
     }
 
-    public double getDPSValue(){
+    public double getDPSValue() {
         return this.attackSpeed * this.damage;
     }
 

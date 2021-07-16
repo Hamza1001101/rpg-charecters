@@ -1,11 +1,11 @@
 package items;
 
 public enum WeaponType {
-    AXES,
-    BOWS,
-    DAGGERS,
-    HAMMERS,
-    STAFFS,
-    SWORDS,
-    WANDS
+    AXE,
+    BOW,
+    DAGGER,
+    HAMMER,
+    STAFF,
+    SWORD,
+    WAND
 }

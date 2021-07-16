@@ -21,10 +21,10 @@ public class Rogue extends CharacterBase {
     @Override
     public boolean equip(Weapon weapon) throws InvalidWeaponException {
         switch (weapon.getWeaponType()) {
-            case DAGGERS, SWORDS -> {
+            case DAGGER, SWORD -> {
                 equipWeapon(weapon);
             }
-            default -> throw new InvalidWeaponException("Mage can only equip STAFFS and WANDS");
+            default -> throw new InvalidWeaponException("Rogue cannot equip anything other than DAGGER or SWORD");
         }
         return false;
     }
@@ -36,7 +36,7 @@ public class Rogue extends CharacterBase {
                 equipArmor(armor);
                 return true;
             }
-            default -> throw new InvalidArmorException("Invalid armor");
+            default -> throw new InvalidArmorException("Rogue cannot equip anything other than LEATHER or MAIL armor");
         }
     }
 

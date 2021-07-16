@@ -58,11 +58,6 @@ public class Program {
         warrior.equip(cloakOfLevitation);
         warrior.equip(soulForgedPantsOfHonor);*/
 
-   int v= mage.getBaseAttributes().getVitality();
-  int s=  mage.getBaseAttributes().getStrength();
-  int d=  mage.getBaseAttributes().getDexterity();
-   int g=  mage.getBaseAttributes().getIntelligence();
-
-        System.out.println(v + " " + s +   " " +d + " " +g);
+   new CharecterPrinter().displayStats(mage);
     }
 }

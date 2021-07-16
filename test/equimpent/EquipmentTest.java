@@ -26,13 +26,13 @@ class EquipmentTest {
 
     @BeforeEach
     public void initializeWeaponAndArmor() {
-        testWeapon = new Weapon("Common Axe", 1,2, 1.1, WeaponType.AXES,
+        testWeapon = new Weapon("Common Axe", 1,2, 1.1, WeaponType.AXE,
                 new PrimaryAttributes(2,1,0,0));
 
-        testWeaponAxe = new Weapon("Common Axe", 2,2, 0.65, WeaponType.AXES,
+        testWeaponAxe = new Weapon("Common Axe", 2,2, 0.65, WeaponType.AXE,
                 new PrimaryAttributes(2,1,0,0));
 
-        testStaff = new Weapon("Common Axe", 2,2, 0.65, WeaponType.STAFFS,
+        testStaff = new Weapon("Common Axe", 2,2, 0.65, WeaponType.STAFF,
                 new PrimaryAttributes(2,1,0,0));
 
 

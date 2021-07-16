@@ -8,8 +8,6 @@ import items.ArmorType;
 import items.Weapon;
 
 
-
-
 public class Mage extends CharacterBase {
 
     public Mage(String name) {
@@ -25,18 +23,18 @@ public class Mage extends CharacterBase {
 
     @Override
     public double calculateDamage() {
-       return calculateDPS(this.getTotalAttributes().getIntelligence());
+        return calculateDPS(this.getTotalAttributes().getIntelligence());
     }
 
 
     @Override
     public boolean equip(Weapon weapon) throws InvalidWeaponException {
         switch (weapon.getWeaponType()) {
-            case STAFFS, WANDS -> {
+            case STAFF, WAND -> {
                 equipWeapon(weapon);
                 return true;
             }
-            default -> throw new InvalidWeaponException("Mage can only equip STAFFS and WANDS");
+            default -> throw new InvalidWeaponException("Mage cannot equip anything other than STAFF or WAND");
         }
     }
 
@@ -46,7 +44,7 @@ public class Mage extends CharacterBase {
             equipArmor(armor);
             return true;
         }
-        throw new InvalidArmorException("Mage can only equip CLOTH armor.");
+        throw new InvalidArmorException("Mage can only wear CLOTH armor.");
 
     }
 
