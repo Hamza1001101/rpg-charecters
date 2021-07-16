@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class EquipmentTest {
 
     private Warrior warrior;
-    private Weapon testWeapon, testWeaponAxe, testStaff;
+    private Weapon testWeaponLevel1, testWeaponAxeLevel2, testStaffLevel2;
     private Armor testPlateBody, testClothHead, testPlateArmor;
 
     @BeforeEach
@@ -26,30 +26,30 @@ class EquipmentTest {
 
     @BeforeEach
     public void initializeWeaponAndArmor() {
-        testWeapon = new Weapon("Common Axe", 1,2, 1.1, WeaponType.AXE,
-                new PrimaryAttributes(2,1,0,0));
+        testWeaponLevel1 = new Weapon("Common Axe", 1, 2, 1.1, WeaponType.AXE,
+                new PrimaryAttributes(2, 1, 0, 0));
 
-        testWeaponAxe = new Weapon("Common Axe", 2,2, 0.65, WeaponType.AXE,
-                new PrimaryAttributes(2,1,0,0));
+        testWeaponAxeLevel2 = new Weapon("Common Axe", 2, 2, 0.65, WeaponType.AXE,
+                new PrimaryAttributes(2, 1, 0, 0));
 
-        testStaff = new Weapon("Common Axe", 2,2, 0.65, WeaponType.STAFF,
-                new PrimaryAttributes(2,1,0,0));
+        testStaffLevel2 = new Weapon("Common Axe", 2, 2, 0.65, WeaponType.STAFF,
+                new PrimaryAttributes(2, 1, 0, 0));
 
 
-        testClothHead = new Armor("Common Plate Head Armor ",1, SlotType.HEAD, ArmorType.CLOTH,
-                new PrimaryAttributes(1,0,0,5));
+        testClothHead = new Armor("Common Plate Head Armor ", 1, SlotType.HEAD, ArmorType.CLOTH,
+                new PrimaryAttributes(1, 0, 0, 5));
 
-        testPlateBody = new Armor("Special Plate Body Armor",2, SlotType.BODY, ArmorType.PLATE,
-                new PrimaryAttributes(1,0,0,5));
+        testPlateBody = new Armor("Special Plate Body Armor", 2, SlotType.BODY, ArmorType.PLATE,
+                new PrimaryAttributes(1, 0, 0, 5));
 
-        testPlateArmor = new Armor("Special Plate Body Armor",1, SlotType.BODY, ArmorType.PLATE,
-                new PrimaryAttributes(1,0,0,5));
+        testPlateArmor = new Armor("Special Plate Body Armor", 1, SlotType.BODY, ArmorType.PLATE,
+                new PrimaryAttributes(1, 0, 0, 5));
     }
 
 
     @Test
     public void equip_TooHighLevel_WeaponInvalidException() {
-        assertThrows(InvalidWeaponException.class, () -> warrior.equip(testWeaponAxe));
+        assertThrows(InvalidWeaponException.class, () -> warrior.equip(testWeaponAxeLevel2));
     }
 
     @Test
@@ -59,17 +59,17 @@ class EquipmentTest {
 
     @Test
     public void equip_WrongWeaponType_InvalidWeaponException() {
-        assertThrows(InvalidWeaponException.class, () -> warrior.equip(testStaff));
+        assertThrows(InvalidWeaponException.class, () -> warrior.equip(testStaffLevel2));
     }
+
     @Test
-    public void equip_WrongArmorType_InvalidArmorException(){
+    public void equip_WrongArmorType_InvalidArmorException() {
         assertThrows(InvalidArmorException.class, () -> warrior.equip(testClothHead));
     }
 
-
     @Test
     public void charecterEquip_ValidWeaponType_True() throws InvalidWeaponException {
-       assertTrue(warrior.equip(testWeapon));
+        assertTrue(warrior.equip(testWeaponLevel1));
     }
 
     @Test
@@ -77,6 +77,25 @@ class EquipmentTest {
         assertTrue(warrior.equip(testPlateArmor));
     }
 
+    @Test
+    public void calculateDPS_NoWeaponEquipped() {
+        double expectedDPSValue = 1;
+        assertEquals(expectedDPSValue, warrior.calculateDamage());
+    }
 
+    @Test
+    public void calculateDPS_WithValidWeaponEquipped() throws InvalidWeaponException {
+        warrior.equip(testWeaponLevel1);
+        assertEquals(2.33, warrior.calculateDamage());
+    }
 
+    @Test
+    public void calculateDPS_WithValidArmorAndWeaponEquipped() throws InvalidWeaponException, InvalidArmorException {
+        warrior.equip(testPlateArmor);
+        warrior.equip(testWeaponLevel1);
+        int [] currentWarriorValues = {warrior.getTotalAttributes().getVitality(), warrior.getTotalAttributes().getStrength(),
+                warrior.getTotalAttributes().getDexterity(), warrior.getTotalAttributes().getIntelligence() };
+        int [] expectedValues = {13, 6, 2, 6};
+        assertArrayEquals(expectedValues, currentWarriorValues);
+    }
 }

@@ -10,11 +10,14 @@ import items.ArmorType;
 import items.Weapon;
 import items.WeaponType;
 
+import java.util.Arrays;
+
 
 public class Program {
     public static void main(String[] args) throws InvalidWeaponException, InvalidArmorException {
 
         Mage mage = new Mage("Hamza");
+        Warrior warrior = new Warrior("Hamza");
 
       /*  Weapon staff = new Weapon("Wooden stuff", 1, 3,
                 0.5, WeaponType.STAFFS, new PrimaryAttributes(0, 0, 2, 1));
@@ -58,6 +61,38 @@ public class Program {
         warrior.equip(cloakOfLevitation);
         warrior.equip(soulForgedPantsOfHonor);*/
 
-   new CharecterPrinter().displayStats(mage);
+   //  new CharecterPrinter().displayStats(mage);
+
+       Weapon axeLevel1 = new Weapon("axe", 1, 2, 0.75,
+               WeaponType.AXE, new PrimaryAttributes(0,2,1,0));
+       Armor plateArmor = new Armor("Plate armor", 1, SlotType.BODY, ArmorType.PLATE ,new PrimaryAttributes(2,0,0,0));
+        Armor plateHelmetLevel1 = new Armor("Plate helmet", 1, SlotType.HEAD,
+                ArmorType.PLATE ,new PrimaryAttributes(2,0,0,0));
+       Armor mailLegs = new Armor("Mail leggings", 1, SlotType.LEGS, ArmorType.MAIL
+                ,new PrimaryAttributes(2,0,0,0));
+
+
+       Weapon testWeaponLevel1 = new Weapon("Common Axe", 1, 2, 1.1, WeaponType.AXE,
+                new PrimaryAttributes(2, 1, 0, 0));
+
+       Armor testPlateArmor = new Armor("Special Plate Body Armor", 1, SlotType.BODY, ArmorType.PLATE,
+                new PrimaryAttributes(1, 0, 0, 5));
+
+       /* warrior.equip(axeLevel1);
+        warrior.equip(plateHelmetLevel1);
+       // warrior.equip(axeLevel2);
+      warrior.equip(plateArmor);
+        warrior.equip(mailLegs);*/
+
+
+
+
+warrior.equip(testPlateArmor);
+warrior.equip(testWeaponLevel1);
+        int [] defaultValue = {warrior.getTotalAttributes().getVitality(), warrior.getTotalAttributes().getStrength(),
+                warrior.getTotalAttributes().getDexterity(), warrior.getTotalAttributes().getIntelligence() };
+
+        System.out.println(Arrays.toString(defaultValue));
+
     }
 }

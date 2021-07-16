@@ -44,6 +44,7 @@ public class Warrior extends CharacterBase {
 
     @Override
     public double calculateDamage() {
-        return calculateDPS(getTotalAttributes().getStrength());
+        double roundDPS = calculateDPS(getTotalAttributes().getStrength());
+        return Math.round(roundDPS*100.0)/100.0;
     }
 }
