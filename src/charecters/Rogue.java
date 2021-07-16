@@ -19,19 +19,23 @@ public class Rogue extends CharacterBase {
     }
 
     @Override
-    public void equip(Weapon weapon) throws InvalidWeaponException {
+    public boolean equip(Weapon weapon) throws InvalidWeaponException {
         switch (weapon.getWeaponType()) {
             case DAGGERS, SWORDS -> {
                 equipWeapon(weapon);
             }
             default -> throw new InvalidWeaponException("Mage can only equip STAFFS and WANDS");
         }
+        return false;
     }
 
     @Override
-    public void equip(Armor armor) throws InvalidArmorException {
+    public boolean equip(Armor armor) throws InvalidArmorException {
         switch (armor.getArmorType()){
-            case LEATHER, MAIL -> equipArmor(armor);
+            case LEATHER, MAIL  -> {
+                equipArmor(armor);
+                return true;
+            }
             default -> throw new InvalidArmorException("Invalid armor");
         }
     }

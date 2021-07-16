@@ -30,21 +30,21 @@ public class Mage extends CharacterBase {
 
 
     @Override
-    public void equip(Weapon weapon) throws InvalidWeaponException {
+    public boolean equip(Weapon weapon) throws InvalidWeaponException {
         switch (weapon.getWeaponType()) {
             case STAFFS, WANDS -> {
                 equipWeapon(weapon);
+                return true;
             }
             default -> throw new InvalidWeaponException("Mage can only equip STAFFS and WANDS");
         }
-
     }
 
     @Override
-    public void equip(Armor armor) throws InvalidArmorException {
+    public boolean equip(Armor armor) throws InvalidArmorException {
         if (armor.getArmorType() == ArmorType.CLOTH) {
             equipArmor(armor);
-            return;
+            return true;
         }
         throw new InvalidArmorException("Mage can only equip CLOTH armor.");
 

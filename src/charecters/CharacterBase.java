@@ -39,39 +39,16 @@ public abstract class CharacterBase {
 
     protected abstract void levelUp(int level);
 
-    public abstract void equip(Weapon weapon) throws InvalidWeaponException;
+    public abstract boolean equip(Weapon weapon) throws InvalidWeaponException;
 
-    public abstract void equip(Armor armor) throws InvalidArmorException;
+    public abstract boolean equip(Armor armor) throws InvalidArmorException;
 
     public abstract double calculateDamage();
 
 
-    protected void equipArmor(Armor armor) throws InvalidArmorException {
-
-        if (armor.getRequiredLevel() > this.level) {
-            throw new InvalidArmorException("Cannot equip a WEAPON that has a higher level requirement.");
-        }
-
-        switch (armor.getSlotType()) {
-            case LEGS -> eItem.getSlotTypeItem().put(SlotType.LEGS, armor);
-            case HEAD -> eItem.getSlotTypeItem().put(SlotType.HEAD, armor);
-            case BODY -> eItem.getSlotTypeItem().put(SlotType.BODY, armor);
-        }
-        setEquipAttributes();
-    }
-
-    protected void equipWeapon(Weapon weapon) throws InvalidWeaponException {
-        if (weapon.getRequiredLevel() > this.level) {
-            throw new InvalidWeaponException("Cannot equip a WEAPON that has a higher level requirement.");
-        }
-        eItem.getSlotTypeItem().put(SlotType.WEAPON, weapon);
-        setEquipAttributes();
-    }
-
     protected double calculateDPS(double param) {
         return eItem.getWeaponItem() == null ? 1 : eItem.getWeaponItem().getDPSValue() * (1 + (param / 100));
     }
-
 
     protected void increaseCharecterLevel(int level) {
         if (level <= 0) {
@@ -80,20 +57,35 @@ public abstract class CharacterBase {
         this.level += level;
     }
 
-    public String getName() {
-        return name;
+    //change the exception
+
+    protected boolean equipArmor(Armor armor) throws InvalidArmorException {
+
+        if (armor.getRequiredLevel() <= this.level) {
+            switch (armor.getSlotType()) {
+                case LEGS -> eItem.getSlotTypeItem().put(SlotType.LEGS, armor);
+                case HEAD -> eItem.getSlotTypeItem().put(SlotType.HEAD, armor);
+                case BODY -> eItem.getSlotTypeItem().put(SlotType.BODY, armor);
+            }
+            setEquipAttributes();
+            return true;
+        } else {
+            throw new InvalidArmorException("Cannot equip a Armor that has a higher level requirement.");
+        }
+
+
     }
 
-    public int getLevel() {
-        return level;
-    }
 
-    public PrimaryAttributes getTotalAttributes() {
-        return totalAttributes;
-    }
-
-    public SecondaryAttributes getSecondaryAttributes() {
-        return secondaryAttributes;
+    //change the exception later.
+    protected boolean equipWeapon(Weapon weapon) throws InvalidWeaponException {
+        if (weapon.getRequiredLevel() <= this.level) {
+            eItem.getSlotTypeItem().put(SlotType.WEAPON, weapon);
+            setEquipAttributes();
+            return true;
+        } else {
+            throw new InvalidWeaponException("Cannot equip a WEAPON that has a higher level requirement.");
+        }
     }
 
 
@@ -154,6 +146,21 @@ public abstract class CharacterBase {
         secondaryAttributes.setHealth(totalAttributes.getVitality());
         secondaryAttributes.setArmorRating(totalAttributes.getDexterity(), totalAttributes.getStrength());
         secondaryAttributes.setElementalResistance(totalAttributes.getIntelligence());
+    }
+    public String getName() {
+        return name;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public PrimaryAttributes getTotalAttributes() {
+        return totalAttributes;
+    }
+
+    public SecondaryAttributes getSecondaryAttributes() {
+        return secondaryAttributes;
     }
 
     public void setSecondaryAttributes(SecondaryAttributes secondaryAttributes) {

@@ -20,4 +20,6 @@ public class Armor extends Item {
     public PrimaryAttributes getPrimaryAttributes() {
         return primaryAttributes;
     }
+
+
 }

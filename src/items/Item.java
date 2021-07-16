@@ -25,5 +25,15 @@ public abstract class Item {
         return slotType;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
 
+    public void setRequiredLevel(int requiredLevel) {
+        this.requiredLevel = requiredLevel;
+    }
+
+    public void setSlotType(SlotType slotType) {
+        this.slotType = slotType;
+    }
 }
