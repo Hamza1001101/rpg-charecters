@@ -148,7 +148,7 @@ public abstract class CharacterBase {
                 equipmentAttributes.increaseStrength(weapon.getPrimaryAttributes().getStrength());
             }
         } else {
-            // If its not a Weapon then its an armor
+            //Armor if it isn't a weapon
             Armor armor = eItem.getArmorItem(key);
             if (armor != null) {
                 equipmentAttributes.increaseVitality(armor.getPrimaryAttributes().getVitality());

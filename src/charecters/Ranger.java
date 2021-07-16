@@ -41,6 +41,7 @@ public class Ranger extends CharacterBase {
 
     @Override
     public double calculateDamage() {
-        return calculateDPS(getTotalAttributes().getDexterity());
+        double roundDPS = calculateDPS(getTotalAttributes().getDexterity());
+        return Math.round(roundDPS * 100.0)/100.0;
     }
 }

@@ -22,12 +22,6 @@ public class Mage extends CharacterBase {
     }
 
     @Override
-    public double calculateDamage() {
-        return calculateDPS(this.getTotalAttributes().getIntelligence());
-    }
-
-
-    @Override
     public boolean equip(Weapon weapon) throws InvalidWeaponException {
         switch (weapon.getWeaponType()) {
             case STAFF, WAND -> {
@@ -46,6 +40,12 @@ public class Mage extends CharacterBase {
         }
         throw new InvalidArmorException("Mage can only wear CLOTH armor.");
 
+    }
+
+    @Override
+    public double calculateDamage() {
+        double roundDPS = calculateDPS(getTotalAttributes().getIntelligence());
+        return Math.round(roundDPS*100.0)/100.0;
     }
 
 }
